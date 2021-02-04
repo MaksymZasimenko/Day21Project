@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+import org.testng.annotations.Test;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -93,7 +94,7 @@ public class MainTest {
 
         //Click publish
         driver.findElement(By.xpath("//button[contains(text(), 'Publish')]")).click();
-        Thread.sleep(2000);
+        Thread.sleep(4000);
 
         //Store news count after update - Task #8
         List<WebElement>newsAfterUpdate = driver.findElements(By.xpath("//table[@id='resultTable']//td//a[@class='newsTopic']"));
@@ -103,10 +104,37 @@ public class MainTest {
         Assert.assertTrue(newsCountAfterUpdate > newsCountBeforeUpdate, "New messages was not added. Test failed.");
         System.out.println("News count after update: " + newsCountAfterUpdate);
         String expMessageText = "Congratulations Anna";
-        String actMessageText = newsAfterUpdate.get(1).getText();
+        Thread.sleep(2000);
+        String actMessageText = newsAfterUpdate.get(0).getText();
         Assert.assertEquals(actMessageText, expMessageText, "Actual message is not correct. Test failed");
 
+        // ------------- Tim part step 10 - 12 -----------
 
+        // log off from Admin
+        driver.findElement(By.xpath("//span[@id='account-job']")).click();
+        driver.findElement(By.xpath("//a[@id='logoutLink']")).click();
+
+        // Log in as 1st Level Supervisor
+        driver.findElement(By.xpath("//button[@class='btn btn-primary dropdown-toggle']")).click();
+        driver.findElement(By.xpath("//a[text()='1st Level Supervisor']")).click();
+
+        // Go to News section
+        driver.findElement(By.xpath("//span[text()='Announcements']")).click();
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("//span[text()='News']")).click();
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("//div[@id='header']")).click();
+        Thread.sleep(2000);
+
+        // Verify Topic and Description values
+        Assert.assertEquals(driver.findElement(By.xpath("//div[@id='header']")).getText(), "Congratulations Anna");
+        Assert.assertEquals(driver.findElement(By.xpath("(//div[@class='html-content']//p)[1]")).getText(), "Promotion was awarded to Anna on 1/7/2020");
+
+        driver.findElement(By.xpath("//span[@id='account-job']")).click();
+        driver.findElement(By.xpath("//a[@id='logoutLink']")).click();
+
+        Thread.sleep(2000);
+        driver.close();
     }
 }
 
