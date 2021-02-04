@@ -1,11 +1,16 @@
 package test;
 
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class MainTest {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         System.setProperty("webdriver.chrome.driver", "/Users/srg_kosenko/Documents/Tech Lead Docs/Automation/Selenium/chromedriver");
         WebDriver driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
@@ -60,6 +65,28 @@ public class MainTest {
         for (String key : newsList.keySet()) {
             System.out.println(key + " | " + newsList.get(key));
         }
+
+        //Add title
+//        driver.switchTo().frame("noncoreIframe");
+        driver.findElement(By.xpath("//i[@class='large material-icons']")).click();
+        driver.findElement(By.id("news_topic")).sendKeys("Congratulations Anna");
+        Thread.sleep(2000);
+
+        //Add news
+        driver.switchTo().frame("news_description_ifr");
+        driver.findElement(By.id("tinymce")).click();
+        driver.findElement(By.id("tinymce")).sendKeys("Promotion was awarded to Anna on 1/7/2020");
+
+        //Click next button
+        driver.switchTo().parentFrame();
+        driver.findElement(By.xpath("//div[@class='row']//button[@id='nextBtn']")).click();
+
+        //Publish to all other users
+        driver.findElement(By.xpath("//label[contains(text(), 'Publish To - All User Roles')]")).click();
+
+        //Click publish
+        driver.findElement(By.xpath("//button[contains(text(), 'Publish')]")).click();
+        Thread.sleep(2000);
 
     }
 }
