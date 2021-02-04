@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -61,10 +62,16 @@ public class MainTest {
         // Print count of news
         System.out.println("Size of newsList " + newsList.size());
 
+
+         //Ermek's task #8  Store news count before update===
+
+        int newsCountBeforeUpdate = newsList.size();
+
         // Print Map
         for (String key : newsList.keySet()) {
             System.out.println(key + " | " + newsList.get(key));
         }
+        System.out.println("News count before update: " + newsCountBeforeUpdate);// Task#8
 
         //Add title
 //        driver.switchTo().frame("noncoreIframe");
@@ -87,6 +94,18 @@ public class MainTest {
         //Click publish
         driver.findElement(By.xpath("//button[contains(text(), 'Publish')]")).click();
         Thread.sleep(2000);
+
+        //Store news count after update - Task #8
+        List<WebElement>newsAfterUpdate = driver.findElements(By.xpath("//table[@id='resultTable']//td//a[@class='newsTopic']"));
+        int newsCountAfterUpdate = newsAfterUpdate.size();
+
+
+        Assert.assertTrue(newsCountAfterUpdate > newsCountBeforeUpdate, "New messages was not added. Test failed.");
+        System.out.println("News count after update: " + newsCountAfterUpdate);
+        String expMessageText = "Congratulations Anna";
+        String actMessageText = newsAfterUpdate.get(1).getText();
+        Assert.assertEquals(actMessageText, expMessageText, "Actual message is not correct. Test failed");
+
 
     }
 }
