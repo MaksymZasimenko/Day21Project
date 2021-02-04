@@ -1,12 +1,10 @@
 package test;
 
-import com.google.common.annotations.VisibleForTesting;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
-import org.testng.annotations.Test;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -50,7 +48,6 @@ public class TestMZ {
         driver.findElement(By.xpath("//button[contains(text(), 'Publish')]")).click();
         Thread.sleep(2000);
 
-
         // ------------- Tim part step 10 - 12 -----------
 
         driver.findElement(By.xpath("//span[@id='account-job']")).click();
@@ -74,8 +71,6 @@ public class TestMZ {
 
         driver.findElement(By.xpath("//span[@id='account-job']")).click();
         driver.findElement(By.xpath("//a[@id='logoutLink']")).click();
-
-
 
         Thread.sleep(2000);
         driver.close();
