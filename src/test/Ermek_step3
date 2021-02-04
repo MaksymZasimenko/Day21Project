@@ -88,7 +88,7 @@ public class day21Project {
         //===Verifiyng news is displayed==========================
         Assert.assertTrue(newsCountAfterUpdate > newsCountBeforeUpdate, "New messages was not added. Test failed.");
         System.out.println("News count after update: " + newsCountAfterUpdate);
-        String expMessageText = "Congratulations+++ Anna";
+        String expMessageText = "Congratulations Anna";
         String actMessageText = newsAfterUpdate.get(1).getText();
         Assert.assertEquals(actMessageText, expMessageText, "Actual message is not correct. Test failed");
 
