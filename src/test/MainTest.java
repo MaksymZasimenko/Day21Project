@@ -1,21 +1,17 @@
 package test;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
-public class SergeyPart1 {
+public class MainTest {
     public static void main(String[] args) {
         System.setProperty("webdriver.chrome.driver", "/Users/srg_kosenko/Documents/Tech Lead Docs/Automation/Selenium/chromedriver");
         WebDriver driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
 
         driver.get("https://orangehrm-demo-6x.orangehrmlive.com/client/#/dashboard");
-
+        //Sergey STEPS 1 - 3 -----------------------------------------------------------------
         //Login as Admin
         driver.findElement(By.id("btnLogin")).click();
         //Open Admin -> Announcements -> News
