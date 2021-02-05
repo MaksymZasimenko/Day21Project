@@ -74,8 +74,9 @@ public class MainTest {
         }
         System.out.println("News count before update: " + newsCountBeforeUpdate);// Task#8
 
+        //Steps 4-7
         //Add title
-//        driver.switchTo().frame("noncoreIframe");
+        //driver.switchTo().frame("noncoreIframe");
         driver.findElement(By.xpath("//i[@class='large material-icons']")).click();
         driver.findElement(By.id("news_topic")).sendKeys("Congratulations Anna");
         Thread.sleep(2000);
@@ -137,19 +138,32 @@ public class MainTest {
         Thread.sleep(2000);
 
 
+        //Steps 13-15
+        //Checking the news
+        //Problem. Locating element by contains(text()) works fine, how to check checkbox next to it for deletion? Opt 1 - Robot.
+        driver.findElement(By.xpath("//span[@id='account-job']")).click();
+        driver.findElement(By.xpath("//a[@id='logoutLink']")).click();
 
-
-
-
+        //Logging In
+        driver.findElement(By.name("Submit")).click();
+        //Navigating to News section
+        driver.findElement(By.xpath("//li[@id=\"menu_admin_viewAdminModule\"]")).click();
+        driver.findElement(By.xpath("//li[@id=\"menu_news_Announcements\"]")).click();
+        driver.findElement(By.xpath("//a[@id=\"menu_news_viewNewsList\"]")).click();
+        driver.findElement(By.xpath("//label[@for=\"checkbox_ohrmList_chkSelectRecord_52\"]")).click();
+        //Deleting it
+        driver.findElement(By.xpath("//a[@id=\"frmList_ohrmListComponent_Menu\"]")).click();
+        driver.findElement(By.xpath("a[@id=\"newsDelete\"]")).click();
+        driver.findElement(By.xpath("a[@id=\"news-delete-button\"]")).click();
 
         /////// Alisher part ----->16 - 17 <------////////
 
         //Verify that item doesn't exist in the table anymore
 //        driver.switchTo().frame("noncoreIframe");
-      //  List<WebElement> listNews = driver.findElements(By.xpath("//table[@class='highlight bordered']//tbody//td"));
-//        for (int i = 0; i < list.size(); i++)
-//            Assert.assertTrue(!list.get(i).getText().contains("Congratulations Anna Promotion was awarded to Anna on 1/7/2020"));
-//    }
+//        List<WebElement> listNews = driver.findElements(By.xpath("//table[@class='highlight bordered']//tbody//td"));
+//        for (int i = 0; i < list.size(); i++){
+//          Assert.assertTrue(!list.get(i).getText().contains("Congratulations Anna Promotion was awarded to Anna on 1/7/2020"));
+//        }
 
 
        ////Verify row count is one less after delete
