@@ -66,13 +66,11 @@ public class MainTest {
 
          //Ermek's task #8  Store news count before update===
 
-        int newsCountBeforeUpdate = newsList.size();
-
         // Print Map
         for (String key : newsList.keySet()) {
             System.out.println(key + " | " + newsList.get(key));
         }
-        System.out.println("News count before update: " + newsCountBeforeUpdate);// Task#8
+        System.out.println("News count before update: " + newsList.size());// Task#8
 
         //Steps 4-7
         //Add title
@@ -103,12 +101,12 @@ public class MainTest {
         int newsCountAfterUpdate = newsAfterUpdate.size();
 
 
-        Assert.assertTrue(newsCountAfterUpdate > newsCountBeforeUpdate, "New messages was not added. Test failed.");
+        Assert.assertTrue(newsCountAfterUpdate > newsList.size(), "New messages was not added. Test failed.");
         System.out.println("News count after update: " + newsCountAfterUpdate);
-        String expMessageText = "Congratulations Anna";
         Thread.sleep(2000);
-        String actMessageText = newsAfterUpdate.get(0).getText();
-        Assert.assertEquals(actMessageText, expMessageText, "Actual message is not correct. Test failed");
+            //String actMessageText = newsAfterUpdate.get(i).getText();
+            WebElement expMessageText = driver.findElement(By.xpath("//a[contains(text(), 'Congratulations Anna')]"));
+            Assert.assertEquals(newsAfterUpdate.get(3).getText(), expMessageText.getText());
 
         // ------------- Tim part step 10 - 12 -----------
 
@@ -129,8 +127,11 @@ public class MainTest {
         Thread.sleep(2000);
 
         // Verify Topic and Description values
-        Assert.assertEquals(driver.findElement(By.xpath("//div[@id='header']")).getText(), "Congratulations Anna");
-        Assert.assertEquals(driver.findElement(By.xpath("(//div[@class='html-content']//p)[1]")).getText(), "Promotion was awarded to Anna on 1/7/2020");
+        Assert.assertEquals(driver.findElement(By.xpath("//div[contains(text(), 'Congratulations Anna')]")).getText(), "Congratulations Anna");
+        driver.findElement(By.xpath("//div[contains(text(), 'Congratulations Anna')]")).click();
+        WebElement newsText = driver.findElement(By.xpath("//div[@class='html-content']//p[contains(text(), 'Promotion was awarded to Anna on 1/7/2020')]"));
+        Thread.sleep(1000);
+        Assert.assertEquals(newsText.getText(),"Promotion was awarded to Anna on 1/7/2020" );
 
         driver.findElement(By.xpath("//span[@id='account-job']")).click();
         driver.findElement(By.xpath("//a[@id='logoutLink']")).click();
@@ -141,8 +142,6 @@ public class MainTest {
         //Steps 13-15
         //Checking the news
         //Problem. Locating element by contains(text()) works fine, how to check checkbox next to it for deletion? Opt 1 - Robot.
-        driver.findElement(By.xpath("//span[@id='account-job']")).click();
-        driver.findElement(By.xpath("//a[@id='logoutLink']")).click();
 
         //Logging In
         driver.findElement(By.name("Submit")).click();
