@@ -146,7 +146,7 @@ public class MainTest {
 
         //Verify that item doesn't exist in the table anymore
 //        driver.switchTo().frame("noncoreIframe");
-//        List<WebElement> list = driver.findElements(By.xpath("//table[@class='highlight bordered']//tbody//td"));
+      //  List<WebElement> listNews = driver.findElements(By.xpath("//table[@class='highlight bordered']//tbody//td"));
 //        for (int i = 0; i < list.size(); i++)
 //            Assert.assertTrue(!list.get(i).getText().contains("Congratulations Anna Promotion was awarded to Anna on 1/7/2020"));
 //    }
