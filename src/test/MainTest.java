@@ -98,6 +98,7 @@ public class MainTest {
 
         //Store news count after update - Task #8
         List<WebElement>newsAfterUpdate = driver.findElements(By.xpath("//table[@id='resultTable']//td//a[@class='newsTopic']"));
+        System.out.println(newsAfterUpdate.size());
         int newsCountAfterUpdate = newsAfterUpdate.size();
 
 
@@ -134,6 +135,33 @@ public class MainTest {
         driver.findElement(By.xpath("//a[@id='logoutLink']")).click();
 
         Thread.sleep(2000);
+
+
+
+
+
+
+
+        /////// Alisher part ----->16 - 17 <------////////
+
+        //Verify that item doesn't exist in the table anymore
+//        driver.switchTo().frame("noncoreIframe");
+//        List<WebElement> list = driver.findElements(By.xpath("//table[@class='highlight bordered']//tbody//td"));
+//        for (int i = 0; i < list.size(); i++)
+//            Assert.assertTrue(!list.get(i).getText().contains("Congratulations Anna Promotion was awarded to Anna on 1/7/2020"));
+//    }
+
+
+       ////Verify row count is one less after delete
+//        List<WebElement> newsCountBeforeUpdate = driver.findElements(By.xpath("//table[@id='resultTable']//td//a[@class='newsTopic']"));
+//        if (newsCountBeforeUpdate == newsAfterUpdate.size()) {
+//        Assert.assertTrue(newsAfterUpdate.size() == newsCountBeforeUpdate, "News was deleted");
+//
+//    }
+
+
+
+
         driver.close();
     }
 }
