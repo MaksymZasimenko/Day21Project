@@ -12,10 +12,8 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class MainTest {
-    public static void main(String[] args) throws InterruptedException {
-//        System.setProperty("webdriver.chrome.driver", "/Users/srg_kosenko/Documents/Tech Lead Docs/Automation/Selenium/chromedriver");
-//        WebDriver driver = new ChromeDriver();
-//        driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
+    @Test
+    public void test() throws InterruptedException {
         System.setProperty("webdriver.chrome.driver", "C:\\Users\\zasim\\OneDrive\\Desktop\\Automation\\chromedriver_win32\\chromedriver.exe");
         WebDriver driver = new ChromeDriver();
         driver.manage().window().maximize();
@@ -78,7 +76,6 @@ public class MainTest {
 
         //Steps 4-7
         //Add title
-        //driver.switchTo().frame("noncoreIframe");
         driver.findElement(By.xpath("//i[@class='large material-icons']")).click();
         driver.findElement(By.id("news_topic")).sendKeys("Congratulations Anna");
         Thread.sleep(2000);
@@ -108,9 +105,8 @@ public class MainTest {
         Assert.assertTrue(newsCountAfterUpdate > newsList.size(), "New messages was not added. Test failed.");
         System.out.println("News count after update: " + newsCountAfterUpdate);
         Thread.sleep(2000);
-            //String actMessageText = newsAfterUpdate.get(i).getText();
-            WebElement expMessageText = driver.findElement(By.xpath("//a[contains(text(), 'Congratulations Anna')]"));
-            Assert.assertEquals(newsAfterUpdate.get(4).getText(), expMessageText.getText());
+        WebElement expMessageText = driver.findElement(By.xpath("//a[contains(text(), 'Congratulations Anna')]"));
+        Assert.assertEquals(newsAfterUpdate.get(0).getText(), expMessageText.getText());
 
         // ------------- Tim part step 10 - 12 -----------
 
@@ -127,8 +123,6 @@ public class MainTest {
         Thread.sleep(2000);
         driver.findElement(By.xpath("//span[text()='News']")).click();
         Thread.sleep(2000);
-        //driver.findElement(By.xpath("//div[@id='header']")).click();
-        //Thread.sleep(2000);
 
         // Verify Topic and Description values
         Assert.assertEquals(driver.findElement(By.xpath("//div[contains(text(), 'Congratulations Anna')]")).getText(), "Congratulations Anna");
@@ -142,22 +136,18 @@ public class MainTest {
 
         Thread.sleep(2000);
 
-
         //Steps 13-15
         //Checking the news
-        //Problem. Locating element by contains(text()) works fine, how to check checkbox next to it for deletion? Opt 1 - Robot.
-
         //Logging In
         driver.findElement(By.name("Submit")).click();
         //Navigating to News section
         driver.findElement(By.xpath("//li[@id=\"menu_admin_viewAdminModule\"]")).click();
         driver.findElement(By.xpath("//li[@id=\"menu_news_Announcements\"]")).click();
         driver.findElement(By.xpath("//a[@id=\"menu_news_viewNewsList\"]")).click();
-        //driver.findElement(By.xpath("//label[@for=\"checkbox_ohrmList_chkSelectRecord_52\"]")).click();
         //Deleting it
         driver.switchTo().frame("noncoreIframe");
         List<WebElement> checkButton = driver.findElements(By.xpath("//tr//td//label"));
-        checkButton.get(4).click();
+        checkButton.get(0).click();
         driver.findElement(By.xpath("//a[@id=\"frmList_ohrmListComponent_Menu\"]")).click();
         driver.findElement(By.xpath("//a[@id=\"newsDelete\"]")).click();
 
