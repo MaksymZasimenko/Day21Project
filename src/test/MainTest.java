@@ -158,27 +158,23 @@ public class MainTest {
         /////// Alisher part ----->16 - 17 <------////////
 
         //Verify that item doesn't exist in the table anymore
-//        driver.switchTo().frame("noncoreIframe");
-//        List<WebElement> listNews = driver.findElements(By.xpath("//table[@class='highlight bordered']//tbody//td"));
-//        for (int i = 0; i < list.size(); i++){
-//          Assert.assertTrue(!list.get(i).getText().contains("Congratulations Anna Promotion was awarded to Anna on 1/7/2020"));
-//        }
+        driver.switchTo().frame("noncoreIframe");
+        List<WebElement> listNews = driver.findElements(By.xpath("//table[@id='resultTable']//td//a[@class='newsTopic']"));
+        for (int i = 0; i < listNews.size(); i++){
+            Assert.assertFalse(listNews.get(i).getText().contains("Congratulations Anna"));
+        }
 
 
-       ////Verify row count is one less after delete
-//        List<WebElement> newsCountBeforeUpdate = driver.findElements(By.xpath("//table[@id='resultTable']//td//a[@class='newsTopic']"));
-//        if (newsCountBeforeUpdate == newsAfterUpdate.size()) {
-//        Assert.assertTrue(newsAfterUpdate.size() == newsCountBeforeUpdate, "News was deleted");
-//
-//    }
+        //Verify row count is one less after delete
+        List<WebElement> checkNewList = driver.findElements(By.xpath("//table[@id='resultTable']//td//a[@class='newsTopic']"));
+        if (newsList.size() == checkNewList.size()) {
+            Assert.assertTrue(newsList.size() == checkNewList.size(), "News was deleted and Not present int the table");
 
-
-
+        }
 
         driver.close();
     }
 }
-
 
 
 
