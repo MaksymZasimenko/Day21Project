@@ -17,7 +17,7 @@ public class MainTest {
         System.setProperty("webdriver.chrome.driver", "C:\\Users\\zasim\\OneDrive\\Desktop\\Automation\\chromedriver_win32\\chromedriver.exe");
         WebDriver driver = new ChromeDriver();
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
         driver.get("https://orangehrm-demo-6x.orangehrmlive.com/client/#/dashboard");
         //Sergey STEPS 1 - 3 -----------------------------------------------------------------
@@ -66,7 +66,7 @@ public class MainTest {
         System.out.println("Size of newsList " + newsList.size());
 
 
-         //Ermek's task #8  Store news count before update===
+        //Ermek's task #8  Store news count before update===
 
         // Print Map
         for (String key : newsList.keySet()) {
@@ -77,13 +77,13 @@ public class MainTest {
         //Steps 4-7
         //Add title
         driver.findElement(By.xpath("//i[@class='large material-icons']")).click();
-        driver.findElement(By.id("news_topic")).sendKeys("Congratulations Anna");
+        driver.findElement(By.id("news_topic")).sendKeys("Congratulations team2");
         Thread.sleep(2000);
 
         //Add news
         driver.switchTo().frame("news_description_ifr");
         driver.findElement(By.id("tinymce")).click();
-        driver.findElement(By.id("tinymce")).sendKeys("Promotion was awarded to Anna on 1/7/2020");
+        driver.findElement(By.id("tinymce")).sendKeys("Promotion was awarded to team2 on 1/7/2020");
 
         //Click next button
         driver.switchTo().parentFrame();
@@ -98,15 +98,15 @@ public class MainTest {
 
         //Store news count after update - Task #8
         List<WebElement>newsAfterUpdate = driver.findElements(By.xpath("//table[@id='resultTable']//td//a[@class='newsTopic']"));
-        System.out.println(newsAfterUpdate.size());
         int newsCountAfterUpdate = newsAfterUpdate.size();
 
 
         Assert.assertTrue(newsCountAfterUpdate > newsList.size(), "New messages was not added. Test failed.");
         System.out.println("News count after update: " + newsCountAfterUpdate);
         Thread.sleep(2000);
-        WebElement expMessageText = driver.findElement(By.xpath("//a[contains(text(), 'Congratulations Anna')]"));
+        WebElement expMessageText = driver.findElement(By.xpath("//a[contains(text(), 'Congratulations team2')]"));
         Assert.assertEquals(newsAfterUpdate.get(0).getText(), expMessageText.getText());
+
 
         // ------------- Tim part step 10 - 12 -----------
 
@@ -125,11 +125,11 @@ public class MainTest {
         Thread.sleep(2000);
 
         // Verify Topic and Description values
-        Assert.assertEquals(driver.findElement(By.xpath("//div[contains(text(), 'Congratulations Anna')]")).getText(), "Congratulations Anna");
-        driver.findElement(By.xpath("//div[contains(text(), 'Congratulations Anna')]")).click();
-        WebElement newsText = driver.findElement(By.xpath("//div[@class='html-content']//p[contains(text(), 'Promotion was awarded to Anna on 1/7/2020')]"));
+        Assert.assertEquals(driver.findElement(By.xpath("//div[contains(text(), 'Congratulations team2')]")).getText(), "Congratulations team2");
+        driver.findElement(By.xpath("//div[contains(text(), 'Congratulations team2')]")).click();
+        WebElement newsText = driver.findElement(By.xpath("//div[@class='html-content']//p[contains(text(), 'Promotion was awarded to team2 on 1/7/2020')]"));
         Thread.sleep(1000);
-        Assert.assertEquals(newsText.getText(),"Promotion was awarded to Anna on 1/7/2020" );
+        Assert.assertEquals(newsText.getText(),"Promotion was awarded to team2 on 1/7/2020" );
 
         driver.findElement(By.xpath("//span[@id='account-job']")).click();
         driver.findElement(By.xpath("//a[@id='logoutLink']")).click();
@@ -150,27 +150,34 @@ public class MainTest {
         checkButton.get(0).click();
         driver.findElement(By.xpath("//a[@id=\"frmList_ohrmListComponent_Menu\"]")).click();
         driver.findElement(By.xpath("//a[@id=\"newsDelete\"]")).click();
+        driver.findElement(By.id("news-delete-button")).click();
+
+
+        Thread.sleep(2000);
+
 
         /////// Alisher part ----->16 - 17 <------////////
 
         //Verify that item doesn't exist in the table anymore
-        driver.switchTo().frame("noncoreIframe");
         List<WebElement> listNews = driver.findElements(By.xpath("//table[@id='resultTable']//td//a[@class='newsTopic']"));
         for (int i = 0; i < listNews.size(); i++){
-            Assert.assertFalse(listNews.get(i).getText().contains("Congratulations Anna"));
+            Assert.assertFalse(listNews.get(i).getText().contains("Congratulations team2"), "News was deleted");
+
         }
 
 
         //Verify row count is one less after delete
         List<WebElement> checkNewList = driver.findElements(By.xpath("//table[@id='resultTable']//td//a[@class='newsTopic']"));
-        if (newsList.size() == checkNewList.size()) {
-            Assert.assertTrue(newsList.size() == checkNewList.size(), "News was deleted and Not present int the table");
-
+        if (newsList.size() < checkNewList.size()) {
+            Assert.assertFalse(newsList.size() == checkNewList.size(), "Row count did not change");
+        }else if (newsList.size() == checkNewList.size()) {
+            Assert.assertTrue(newsList.size() == checkNewList.size(), "Row count changed");
         }
+
+
 
         driver.close();
     }
 }
-
 
 
