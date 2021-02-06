@@ -13,8 +13,12 @@ import java.util.concurrent.TimeUnit;
 
 public class MainTest {
     public static void main(String[] args) throws InterruptedException {
-        System.setProperty("webdriver.chrome.driver", "/Users/srg_kosenko/Documents/Tech Lead Docs/Automation/Selenium/chromedriver");
+//        System.setProperty("webdriver.chrome.driver", "/Users/srg_kosenko/Documents/Tech Lead Docs/Automation/Selenium/chromedriver");
+//        WebDriver driver = new ChromeDriver();
+//        driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
+        System.setProperty("webdriver.chrome.driver", "C:\\Users\\zasim\\OneDrive\\Desktop\\Automation\\chromedriver_win32\\chromedriver.exe");
         WebDriver driver = new ChromeDriver();
+        driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
 
         driver.get("https://orangehrm-demo-6x.orangehrmlive.com/client/#/dashboard");
@@ -106,7 +110,7 @@ public class MainTest {
         Thread.sleep(2000);
             //String actMessageText = newsAfterUpdate.get(i).getText();
             WebElement expMessageText = driver.findElement(By.xpath("//a[contains(text(), 'Congratulations Anna')]"));
-            Assert.assertEquals(newsAfterUpdate.get(3).getText(), expMessageText.getText());
+            Assert.assertEquals(newsAfterUpdate.get(4).getText(), expMessageText.getText());
 
         // ------------- Tim part step 10 - 12 -----------
 
@@ -123,8 +127,8 @@ public class MainTest {
         Thread.sleep(2000);
         driver.findElement(By.xpath("//span[text()='News']")).click();
         Thread.sleep(2000);
-        driver.findElement(By.xpath("//div[@id='header']")).click();
-        Thread.sleep(2000);
+        //driver.findElement(By.xpath("//div[@id='header']")).click();
+        //Thread.sleep(2000);
 
         // Verify Topic and Description values
         Assert.assertEquals(driver.findElement(By.xpath("//div[contains(text(), 'Congratulations Anna')]")).getText(), "Congratulations Anna");
@@ -149,11 +153,13 @@ public class MainTest {
         driver.findElement(By.xpath("//li[@id=\"menu_admin_viewAdminModule\"]")).click();
         driver.findElement(By.xpath("//li[@id=\"menu_news_Announcements\"]")).click();
         driver.findElement(By.xpath("//a[@id=\"menu_news_viewNewsList\"]")).click();
-        driver.findElement(By.xpath("//label[@for=\"checkbox_ohrmList_chkSelectRecord_52\"]")).click();
+        //driver.findElement(By.xpath("//label[@for=\"checkbox_ohrmList_chkSelectRecord_52\"]")).click();
         //Deleting it
+        driver.switchTo().frame("noncoreIframe");
+        List<WebElement> checkButton = driver.findElements(By.xpath("//tr//td//label"));
+        checkButton.get(4).click();
         driver.findElement(By.xpath("//a[@id=\"frmList_ohrmListComponent_Menu\"]")).click();
-        driver.findElement(By.xpath("a[@id=\"newsDelete\"]")).click();
-        driver.findElement(By.xpath("a[@id=\"news-delete-button\"]")).click();
+        driver.findElement(By.xpath("//a[@id=\"newsDelete\"]")).click();
 
         /////// Alisher part ----->16 - 17 <------////////
 
